@@ -167,3 +167,32 @@ Processing by LessonsController#index as */*
 Completed 200 OK in 9ms (Views: 3.6ms | ActiveRecord: 2.1ms (2 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5270362339656367590) /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Lms'*/[0m
+Migrating to AddCompletedColumnToLesson (20251103230218)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Lms'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "lessons" ADD "completed" boolean DEFAULT FALSE /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251103230218') RETURNING "version" /*application='Lms'*/[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT /*application='Lms'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5270362339656367590) /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='Lms'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Lms'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='Lms'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Lms'*/[0m
+Started PATCH "/lessons/2c7e3640-e52a-49a7-86fd-53d7fcea459f/complete" for 127.0.0.1 at 2025-11-03 18:20:37 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+Processing by LessonsController#mark_complete as */*
+  Parameters: {"id" => "2c7e3640-e52a-49a7-86fd-53d7fcea459f"}
+  [1m[36mLesson Load (1.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."id" = '2c7e3640-e52a-49a7-86fd-53d7fcea459f' LIMIT 1 /*action='mark_complete',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:39:in 'LessonsController#mark_complete'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*action='mark_complete',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:41:in 'LessonsController#mark_complete'
+  [1m[36mLesson Update (3.1ms)[0m  [1m[33mUPDATE "lessons" SET "updated_at" = '2025-11-03 18:20:37.975538', "completed" = TRUE WHERE "lessons"."id" = '2c7e3640-e52a-49a7-86fd-53d7fcea459f' /*action='mark_complete',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:41:in 'LessonsController#mark_complete'
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*action='mark_complete',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:41:in 'LessonsController#mark_complete'
+Completed 200 OK in 101ms (Views: 0.6ms | ActiveRecord: 18.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+

@@ -1,2 +1,3 @@
 services/lms/tmp/*
-services/lms/tmp/
+services/lms/log/development.log
+services/lms/db/schema.rb
