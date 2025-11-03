@@ -72,3 +72,98 @@ Processing by CoursesController#show as */*
 Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 1.4ms (1 query, 0 cached) | GC: 0.0ms)
 
 
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5270362339656367590) /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Lms'*/[0m
+Migrating to CreateLessons (20251103200135)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Lms'*/[0m
+  [1m[35m (20.4ms)[0m  [1m[35mCREATE TABLE "lessons" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "lesson_name" character varying, "lesson_description" text, "course_id" uuid NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_4bcdb571d9"
+FOREIGN KEY ("course_id")
+  REFERENCES "courses" ("id")
+) /*application='Lms'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_lessons_on_course_id" ON "lessons" ("course_id") /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251103200135') RETURNING "version" /*application='Lms'*/[0m
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT /*application='Lms'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(5270362339656367590) /*application='Lms'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mSET search_path TO public /*application='Lms'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Lms'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO public /*application='Lms'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Lms'*/[0m
+Started GET "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:04:47 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Lms'*/[0m
+Processing by LessonsController#index as */*
+  Parameters: {"course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (0.9ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='index',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mLesson Load (1.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."course_id" = '71d04e91-1a1e-4404-a1de-012becb7259e' /*action='index',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:8:in 'LessonsController#index'
+Completed 200 OK in 171ms (Views: 19.6ms | ActiveRecord: 63.0ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:05:03 +0000
+Processing by LessonsController#create as */*
+  Parameters: {"lesson" => {"lesson_name" => "Lesson Name 1", "lesson_description" => "Lesson Description 1"}, "course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (1.5ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mLesson Create (4.4ms)[0m  [1m[32mINSERT INTO "lessons" ("lesson_name", "lesson_description", "course_id", "created_at", "updated_at") VALUES ('Lesson Name 1', 'Lesson Description 1', '71d04e91-1a1e-4404-a1de-012becb7259e', '2025-11-03 18:05:03.190934', '2025-11-03 18:05:03.190934') RETURNING "id" /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+Completed 201 Created in 32ms (Views: 0.8ms | ActiveRecord: 8.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:05:11 +0000
+Processing by LessonsController#create as */*
+  Parameters: {"lesson" => {"lesson_name" => "Lesson Name 2", "lesson_description" => "Lesson Description 2"}, "course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (1.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mLesson Create (2.9ms)[0m  [1m[32mINSERT INTO "lessons" ("lesson_name", "lesson_description", "course_id", "created_at", "updated_at") VALUES ('Lesson Name 2', 'Lesson Description 2', '71d04e91-1a1e-4404-a1de-012becb7259e', '2025-11-03 18:05:11.750012', '2025-11-03 18:05:11.750012') RETURNING "id" /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+Completed 201 Created in 18ms (Views: 0.5ms | ActiveRecord: 7.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:05:18 +0000
+Processing by LessonsController#create as */*
+  Parameters: {"lesson" => {"lesson_name" => "Lesson Name 3", "lesson_description" => "Lesson Description 3"}, "course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (1.6ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mLesson Create (3.0ms)[0m  [1m[32mINSERT INTO "lessons" ("lesson_name", "lesson_description", "course_id", "created_at", "updated_at") VALUES ('Lesson Name 3', 'Lesson Description 3', '71d04e91-1a1e-4404-a1de-012becb7259e', '2025-11-03 18:05:18.051449', '2025-11-03 18:05:18.051449') RETURNING "id" /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[35mCOMMIT /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+Completed 201 Created in 20ms (Views: 0.5ms | ActiveRecord: 9.7ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:05:25 +0000
+Processing by LessonsController#create as */*
+  Parameters: {"lesson" => {"lesson_name" => "Lesson Name 4", "lesson_description" => "Lesson Description 4"}, "course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (1.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mLesson Create (3.4ms)[0m  [1m[32mINSERT INTO "lessons" ("lesson_name", "lesson_description", "course_id", "created_at", "updated_at") VALUES ('Lesson Name 4', 'Lesson Description 4', '71d04e91-1a1e-4404-a1de-012becb7259e', '2025-11-03 18:05:25.114835', '2025-11-03 18:05:25.114835') RETURNING "id" /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+  [1m[36mTRANSACTION (5.0ms)[0m  [1m[35mCOMMIT /*action='create',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:18:in 'LessonsController#create'
+Completed 201 Created in 19ms (Views: 0.5ms | ActiveRecord: 10.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/courses/71d04e91-1a1e-4404-a1de-012becb7259e/lessons" for 127.0.0.1 at 2025-11-03 18:05:28 +0000
+Processing by LessonsController#index as */*
+  Parameters: {"course_id" => "71d04e91-1a1e-4404-a1de-012becb7259e"}
+  [1m[36mCourse Load (1.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = '71d04e91-1a1e-4404-a1de-012becb7259e' LIMIT 1 /*action='index',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:59:in 'LessonsController#set_course'
+  [1m[36mLesson Load (0.7ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."course_id" = '71d04e91-1a1e-4404-a1de-012becb7259e' /*action='index',application='Lms',controller='lessons'*/[0m
+  ↳ app/controllers/lessons_controller.rb:8:in 'LessonsController#index'
+Completed 200 OK in 9ms (Views: 3.6ms | ActiveRecord: 2.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
